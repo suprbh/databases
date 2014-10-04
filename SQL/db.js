@@ -12,48 +12,41 @@ var dbConnection = mysql.createConnection({
   database: "chat"
 });
 
-// exports.openDB = function(){
-  dbConnection.connect();
-// };
-
-exports.closeDB = function(){
-  // dbConnection.end();
-};
-
 /* Now you can make queries to the Mysql database using the
  * dbConnection.query() method.
  * See https://github.com/felixge/node-mysql for more details about
  * using this module.*/
-
-
-
+  dbConnection.connect();
 
 exports.findAllMessages = function(cb){
 	var queryString = "select * from messages;";
+  // dbConnection.connect();
 	dbConnection.query(queryString, function(err, rows, fields){
 		if (err) {
 			console.log("Error querying the database: ", queryString);
       cb(err, "");
 		}
 		cb(true, rows);
-			// console.log('user: ' + rows[i].username + 'msg: '+ rows[i].message);
 	});
+  // dbConnection.end();
 };
 
 exports.findUser = function(username, cb){
 	var queryString = "select * from user WHERE username='" + username + "';";
+  // dbConnection.connect();
 	dbConnection.query(queryString, function(err, rows, fields){
 		if (err) {
 			console.log("Error querying the database: ", queryString);
       cb(err);
 		}
 		cb(true, rows);
-		// console.log('user: ' + rows[i].username + 'msg: '+ rows[i].message);
 	});
+  // dbConnection.end();
 };
 
 exports.saveUser = function(username, cb){
   var queryString = "INSERT INTO user (username) VALUES ('"+username+"');";
+  // dbConnection.connect();
   dbConnection.query(queryString, function(err){
     if (err) {
       console.log("Error inserting :", queryString);
@@ -63,16 +56,20 @@ exports.saveUser = function(username, cb){
       cb(results);
     });
   });
+  // dbConnection.end();
 };
 
 exports.saveMessage = function(message, userid, roomname, cb){
   var queryString = 'INSERT INTO messages (userid, message, roomname) VALUES ('+ userid +',"'+message+'", "'+roomname+'");';
+  // dbConnection.connect();
   dbConnection.query(queryString, function(err, rows, fields){
     if (err) {
       console.log("Error querying the database: ", queryString);
     }
     cb();
-    // console.log('user: ' + rows[i].username + 'msg: '+ rows[i].message);
   });
+  // dbConnection.end();
 };
+
+  // dbConnection.end();
 

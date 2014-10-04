@@ -6,15 +6,12 @@ var saveMessage = db.saveMessage;
 var saveUser = db.saveUser;
 var findMessages = db.findAllMessages;
 var findUser = db.findUser;
-var closeDB = db.closeDB;
-var openDB = db.openDB;
 
 
 exports.postMessage = function(req, res) {
   // declare this variable so we can retain access to it throughout the entire promise chain.
   var message;
 
-  // openDB();
   var resultsCallback = function (results) {
       var chat = {
         message: message.message,
@@ -40,8 +37,6 @@ exports.postMessage = function(req, res) {
         }
       });
   });
-
-  closeDB();
 };
 
 exports.getMessages = function(req, res) {
