@@ -9,7 +9,7 @@ CREATE TABLE user (
 
 CREATE TABLE messages (
   /* Describe your table here.*/
-  userid integer(5),
+  userid integer(5) primary key,
   message varchar(255),
   roomname varchar(20)
 );
